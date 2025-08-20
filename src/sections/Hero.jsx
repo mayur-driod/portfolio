@@ -37,12 +37,12 @@ function Hero() {
                             <HackerRoom scale={sizes.deskScale} position={sizes.deskPosition} rotation={[0.1, -Math.PI, 0]}/>
                         </HeroCamera>
 
-                            <group>
+                            {/* <group>
                                 <Target position={sizes.targetPosition} />
                                 <ReactLogo position={sizes.reactLogoPosition} />
                                 <Rings position={sizes.ringPosition} />
                                 <Cube position={sizes.cubePosition} />
-                            </group>
+                            </group> */}
 
                         <ambientLight intensity={1} />
                         <directionalLight position={[10, 10, 5]} intensity={0.5} />
