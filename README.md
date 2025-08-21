@@ -50,7 +50,7 @@ I’m **Mayur**, a developer who loves mixing **tech + creativity**.
 
 ## 🔗 Connect with Me
 
-* 🌐 Portfolio: [your-portfolio-link]()
+* 🌐 Portfolio: [Portfolio](https://mayurksetty.vercel.app/)
 * 📧 Email: \[[settymayurk@gmail.com](mailto:settymayurk@gmail.com)]
 * 💼 LinkedIn: [linkedin.com/in/mayurksetty](https://linkedin.com/in/mayurksetty)
 * 🐦 Instagram: [@mayura.jpg](https://instagram.com/mayura.jpg)
