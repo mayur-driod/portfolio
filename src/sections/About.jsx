@@ -4,10 +4,11 @@ import RotatingGlobe from '../components/RotatingGlobe.jsx';
 import Button from '../components/Button.jsx';
 
 const About = () => {
+  const [showPopup, setShowPopup] = useState(false);
   const [hasCopied, setHasCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText('mailto:settymayurk@gmail.com');
+    navigator.clipboard.writeText("settymayurk@gmail.com");
     setHasCopied(true);
 
     setTimeout(() => {
@@ -83,12 +84,61 @@ const About = () => {
 
             <div className="space-y-2">
               <p className="grid-subtext text-center">Contact me</p>
-              <div className="copy-container" onClick={handleCopy}>
-                <img src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
-                <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">settymayurk@gmail.com</p>
+              <div
+                className="copy-container cursor-pointer"
+                onClick={() => setShowPopup(true)}
+              >
+                <img src="assets/copy.svg" alt="copy" />
+                <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">
+                  settymayurk@gmail.com
+                </p>
               </div>
             </div>
           </div>
+
+          {/* Popup Modal */}
+          {showPopup && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+              
+              <div className="relative bg-black border border-gray-700 p-6 rounded-2xl shadow-lg w-[90%] max-w-md text-center space-y-4">
+                {/* Cancel Button (top-right inside modal) */}
+                <button
+                  onClick={() => setShowPopup(false)}
+                  className="absolute top-3 right-3 p-2 rounded-full hover:bg-gray-800 transition-colors"
+                >
+                  <img src="assets/close.svg" alt="close" className="w-6 h-6" />
+                </button>
+
+                <h2 className="text-xl font-semibold text-white">Contact Options</h2>
+                <p className="text-gray-300">Choose how you want to reach me</p>
+
+                <div className="flex flex-col gap-3">
+                  {/* Copy Button */}
+                  <button
+                    onClick={handleCopy}
+                    className="px-4 py-2 flex items-center justify-center gap-2 bg-gray-950 hover:bg-gray-900 rounded-lg text-white transition-colors"
+                  >
+                    <img
+                      src={hasCopied ? "assets/tick.svg" : "assets/copy.svg"}
+                      alt="copy"
+                    />
+                    <span className="lg:text-lg md:text-base font-medium">
+                      {hasCopied ? "Email Copied!" : "Copy Email"}
+                    </span>
+                  </button>
+
+                  {/* Mailto Button */}
+                  <a
+                    href="mailto:settymayurk@gmail.com"
+                    className="px-4 py-2 flex items-center justify-center gap-2 bg-gray-950 hover:bg-gray-900 rounded-lg text-white transition-colors"
+                  >
+                    <img className="w-8 h-8" src="assets/email.png" alt="email" />
+                    <span className="lg:text-lg md:text-base font-medium">Send Email</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
