@@ -1,7 +1,10 @@
 {
   "name": "package.json",
+  "author":"Mayur K Setty",
+  "license": "MIT",
+  "description": "A Vite + React portfolio project with Tailwind CSS, GSAP, and Three.js.",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
