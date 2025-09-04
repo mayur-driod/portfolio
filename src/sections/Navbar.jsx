@@ -37,6 +37,13 @@ const Navbar = () => {
 
           <nav className="sm:flex hidden">
             <NavItems />
+            <a
+              href="/assets/MayurKSetty.pdf"
+              download="MayurKSetty_CV.pdf"
+              className="ml-4 px-5 py-2 rounded-xl bg-black text-white border border-white/20 font-medium shadow-sm hover:bg-neutral-800 hover:border-white/40 transition-all duration-300"
+            >
+              Download CV
+            </a>
           </nav>
         </div>
       </div>
@@ -44,6 +51,13 @@ const Navbar = () => {
       <div className={`nav-sidebar ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
         <nav className="p-5">
           <NavItems onClick={closeMenu} />
+           <a
+            href="/assets/MayurKSetty.pdf"
+            download="MayurKSetty_CV.pdf"
+            className="mt-3 px-5 py-2 rounded-xl bg-black text-white border border-white/20 font-medium shadow-sm hover:bg-neutral-800 hover:border-white/40 transition-all duration-300 text-center"
+          >
+            Download CV
+          </a>
         </nav>
       </div>
     </header>
