@@ -158,7 +158,7 @@ export const myProjects = [
       {
         id: 2,
         name: 'TypeScript',
-        path: 'assets/typescript.svg',
+        path: '/assets/typescript.svg',
       },
       {
         id: 3,
