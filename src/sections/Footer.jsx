@@ -2,9 +2,11 @@ const Footer = () => {
   return (
     <footer className="c-space pt-7 pb-3 border-t border-black-300 flex justify-between items-center flex-wrap gap-5 mt-40">
       <div className="text-white-500 flex gap-2">
-        <p>Terms & Conditions</p>
-        <p>|</p>
-        <p>Privacy Policy</p>
+        <a className="flex gap-2" href="https://github.com/mayur-driod/portfolio?tab=MIT-1-ov-file" >
+          <p>Terms & Conditions</p>
+          <p>|</p>
+          <p>Privacy Policy</p>
+        </a>
       </div>
 
       <div className="flex gap-3">
