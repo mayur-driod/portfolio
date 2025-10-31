@@ -1,6 +1,6 @@
 {
   "name": "package.json",
-  "author":"Mayur K Setty",
+  "author": "Mayur K Setty",
   "license": "MIT",
   "description": "A Vite + React portfolio project with Tailwind CSS, GSAP, and Three.js.",
   "private": true,
@@ -10,7 +10,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format:file": "prettier --write",
+    "format:all": "prettier --write 'src/**/*.{js,jsx}'",
+    "format:tailwind": "prettier --write 'src/**/*.{js,jsx,ts,tsx,html}'",
+    "format:check": "prettier --check 'src/**/*.{js,jsx,ts,tsx,html}'"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -20,6 +24,7 @@
     "gsap": "^3.13.0",
     "leva": "^0.10.0",
     "maath": "^0.10.8",
+    "prettier": "^3.6.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-globe.gl": "^2.35.0",
