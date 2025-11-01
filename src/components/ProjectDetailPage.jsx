@@ -4,12 +4,41 @@ function ProjectDetailPage({ project = {}, onClose }) {
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef(null);
 
+  //lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  // new: scroll state + ref for scrollable content + scroll hint
+  const contentRef = useRef(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [showScrollHint, setShowScrollHint] = useState(true);
+
   useEffect(() => {
     // mount animation
     setMounted(true);
 
     const onKey = (e) => {
-      if (e.key === "Escape") onClose && onClose();
+      // keyboard nav for lightbox when open; otherwise close modal on Escape
+      if (lightboxOpen) {
+        if (e.key === "Escape") {
+          setLightboxOpen(false);
+          return;
+        }
+        if (e.key === "ArrowRight") {
+          setLightboxIndex((i) => (i + 1) % (project.gallery?.length || 1));
+          return;
+        }
+        if (e.key === "ArrowLeft") {
+          setLightboxIndex(
+            (i) =>
+              (i - 1 + (project.gallery?.length || 1)) %
+              (project.gallery?.length || 1),
+          );
+          return;
+        }
+      } else {
+        if (e.key === "Escape") onClose && onClose();
+      }
     };
     window.addEventListener("keydown", onKey);
 
@@ -22,7 +51,37 @@ function ProjectDetailPage({ project = {}, onClose }) {
       setMounted(false);
       document.body.style.overflow = prevOverflow;
     };
-  }, [onClose]);
+  }, [onClose, lightboxOpen, project.gallery]);
+
+  // helpers for lightbox
+  const openLightbox = (index) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+  const closeLightbox = () => setLightboxOpen(false);
+  const nextLightbox = (e) => {
+    e && e.stopPropagation();
+    setLightboxIndex((i) => (i + 1) % (gallery.length || 1));
+  };
+  const prevLightbox = (e) => {
+    e && e.stopPropagation();
+    setLightboxIndex(
+      (i) => (i - 1 + (gallery.length || 1)) % (gallery.length || 1),
+    );
+  };
+
+  // scroll hint click: scroll the details area and hide the hint
+  const handleScrollHintClick = () => {
+    const el = contentRef.current;
+    if (!el) return;
+    // Scroll down a reasonable amount (or to bottom if less remains)
+    const remaining = el.scrollHeight - el.scrollTop - el.clientHeight;
+    const amount = remaining > 480 ? 480 : remaining;
+    if (amount > 0) {
+      el.scrollBy({ top: amount, behavior: "smooth" });
+    }
+    setShowScrollHint(false);
+  };
 
   // safe defaults
   const {
@@ -40,8 +99,95 @@ function ProjectDetailPage({ project = {}, onClose }) {
     tags = [],
   } = project;
 
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      const y = el.scrollTop;
+      setScrolled(y > 6);
+      if (y > 0) setShowScrollHint(false);
+    };
+
+    el.addEventListener("scroll", onScroll, { passive: true });
+
+    // keep the hint visible until the user actually scrolls
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+    };
+  }, [contentRef]);
+
   return (
     <>
+      {/* small, local scrollbar styles for the modal */}
+      <style>{`
+        /* thin, subtle scrollbar for the project detail modal */
+        .pd-scroll {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255,255,255,0.16) rgba(0,0,0,0);
+        }
+        .pd-scroll::-webkit-scrollbar {
+          width: 12px;
+          height: 12px;
+        }
+        .pd-scroll::-webkit-scrollbar-track {
+          background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+          border-radius: 12px;
+        }
+        .pd-scroll::-webkit-scrollbar-thumb {
+          background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.10));
+          border-radius: 9px;
+          border: 3px solid rgba(0,0,0,0.35);
+        }
+        .pd-scroll::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(180deg, rgba(255,255,255,0.20), rgba(255,255,255,0.14));
+        }
+
+        /* lightbox styles */
+        .pd-lightbox {
+          backdrop-filter: blur(6px);
+        }
+        .pd-lightbox .lb-btn {
+          background: rgba(255,255,255,0.06);
+          color: #fff;
+          border-radius: 6px;
+          padding: 8px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          transition: background .15s;
+        }
+        .pd-lightbox .lb-btn:hover { background: rgba(255,255,255,0.10); }
+
+        /* scroll shadow (appears at top of content area when scrolled) */
+        .content-shadow {
+          box-shadow: inset 0 8px 10px -10px rgba(0,0,0,0.6), inset 0 6px 14px -12px rgba(0,0,0,0.5);
+        }
+
+        /* scroll hint chevron */
+        .scroll-hint {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 44px;
+          height: 28px;
+          border-radius: 999px;
+          background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+          color: rgba(255,255,255,0.9);
+          transform-origin: center;
+          animation: bounce 1400ms infinite;
+          opacity: 1;
+          transition: opacity .3s ease, transform .25s ease;
+        }
+        .scroll-hint.hidden { opacity: 0; transform: translateY(6px) scale(.98); pointer-events: none; animation: none; }
+
+        @keyframes bounce {
+          0% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
+          100% { transform: translateY(0); }
+        }
+      `}</style>
+
       {/* full-screen backdrop + container */}
       <div
         className="fixed inset-0 z-50 flex flex-col items-center justify-start p-6"
@@ -198,12 +344,40 @@ function ProjectDetailPage({ project = {}, onClose }) {
                 </p>
               )}
             </div>
+
+            {/* small animated scroll hint centered at bottom of banner */}
+            <div className="absolute left-0 right-0 bottom-4 flex items-center justify-center">
+              <button
+                onClick={handleScrollHintClick}
+                aria-label="Scroll to details"
+                className={`scroll-hint ${showScrollHint ? "" : "hidden"} focus:outline-none focus:ring-2 focus:ring-white/30`}
+              >
+                <svg
+                  width="18"
+                  height="10"
+                  viewBox="0 0 24 14"
+                  fill="none"
+                  aria-hidden
+                >
+                  <path
+                    d="M2 2.5L12 11.5L22 2.5"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
 
           {/* Scrollable content area below the banner */}
           <div
-            className={`p-6 md:p-8 overflow-auto flex-1 transition-opacity duration-500
-              ${mounted ? "opacity-100" : "opacity-0"}`}
+            ref={contentRef}
+            tabIndex={0}
+            aria-label={`${title} details`}
+            className={`p-6 md:p-8 overflow-auto flex-1 pd-scroll transition-opacity duration-500 ${mounted ? "opacity-100" : "opacity-0"} ${scrolled ? "content-shadow" : ""}`}
+            style={{ scrollbarGutter: "stable", outline: "none" }}
           >
             {/* Overview */}
             {overview && (
@@ -299,7 +473,16 @@ function ProjectDetailPage({ project = {}, onClose }) {
                       key={i}
                       src={src}
                       alt={`screenshot-${i}`}
-                      className="w-48 h-28 object-cover rounded-md border border-white/6"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => openLightbox(i)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          openLightbox(i);
+                        }
+                      }}
+                      className="w-48 h-28 object-cover rounded-md border border-white/6 cursor-pointer"
                     />
                   ))}
                 </div>
@@ -369,6 +552,81 @@ function ProjectDetailPage({ project = {}, onClose }) {
           </div>
         </div>
       </div>
+
+      {/* Lightbox overlay */}
+      {lightboxOpen && gallery.length > 0 && (
+        <div
+          className="pd-lightbox fixed inset-0 flex items-center justify-center p-6"
+          onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          style={{ zIndex: 99999 }} // ensure overlay sits above modal
+        >
+          <div className="absolute inset-0 bg-black/90" />
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              closeLightbox();
+            }}
+            aria-label="Close image"
+            className="lb-btn"
+            style={{ position: "absolute", top: 24, right: 24, zIndex: 100000 }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M6 6L18 18M6 18L18 6"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+
+          <button
+            onClick={(e) => prevLightbox(e)}
+            aria-label="Previous image"
+            className="lb-btn"
+            style={{ position: "absolute", left: 24, zIndex: 100000 }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M15 6l-6 6 6 6"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+
+          <img
+            src={gallery[lightboxIndex]}
+            alt={`screenshot-${lightboxIndex}`}
+            className="max-w-[90%] max-h-[90%] rounded-md shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+            style={{ position: "relative", zIndex: 100000 }}
+          />
+
+          <button
+            onClick={(e) => nextLightbox(e)}
+            aria-label="Next image"
+            className="lb-btn"
+            style={{ position: "absolute", right: 24, zIndex: 100000 }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M9 6l6 6-6 6"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
     </>
   );
 }

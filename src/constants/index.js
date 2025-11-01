@@ -114,14 +114,16 @@ export const myProjects = [
       },
     ],
     gallery: [
-      "/assets/screenshots/terra-home.png",
-      "/assets/screenshots/terra-upload.png",
-      "/assets/screenshots/terra-map.png",
+      "/assets/ProjectGallery/Terraquest_1.png",
+      "/assets/ProjectGallery/Terraquest_2.png",
+      "/assets/ProjectGallery/Terraquest_3.png",
+      "/assets/ProjectGallery/Terraquest_4.png",
+      "/assets/ProjectGallery/Terraquest_5.png",
     ],
     reflection:
       "TerraQuest taught me how to design for observational workflows — prioritizing fast media uploads, clear metadata, and a map-centric discovery experience. I also improved my approach to image performance and progressive-loading techniques.",
     stats: {
-      duration: "4 weeks",
+      duration: "8 weeks",
       team: "Solo Project",
       role: "Full Stack Developer",
       date: "Feb 2025",
@@ -136,7 +138,7 @@ export const myProjects = [
       "This app is designed to revolutionize the way users discover and create recipes, making it easier to find meals that suit their tastes and nutritional needs. Built with Vite (react), TailwindCSS, and Gemini AI, Byte-2-Bite combines cutting-edge technology with a user-friendly interface. Uses RAG (Retrieval Augmented Generation) to provide users with a seamless experience in generating recipes.",
     href: "https://github.com/kalviumcommunity/Byte-2-Bite_MayurKSetty_S68_GenAI",
     texture: "/textures/project/project2.mp4",
-    banner: "", // leave banner blank for later asset
+    banner: "/assets/ProjectGallery/Byte-2-Bite_1.png",
     logo: "/assets/Byte-2-Bite.png",
     logoStyle: {
       backgroundColor: "#13202F",
@@ -172,11 +174,11 @@ export const myProjects = [
     techstack: [
       "React (Vite)",
       "TailwindCSS",
-      "Gemini AI",
+      "Gemini API (Embeddings + LLM)",
       "Node.js",
       "Express",
-      "MongoDB",
-      "Cloudinary",
+      "AstraDB",
+      "Puppeteer",
     ],
     links: {
       source:
@@ -219,9 +221,9 @@ export const myProjects = [
       },
     ],
     gallery: [
-      "/assets/screenshots/byte-home.png",
-      "/assets/screenshots/byte-results.png",
-      "/assets/screenshots/byte-input.png",
+      "/assets/ProjectGallery/Byte-2-Bite_1.png",
+      "/assets/ProjectGallery/Byte-2-Bite_2.png",
+      "/assets/ProjectGallery/Byte-2-Bite_3.png",
     ],
     reflection:
       "Building Byte-2-Bite deepened my understanding of RAG pipelines, prompt design for culinary domains, and pragmatic caching strategies for LLM-driven features. It also reinforced the importance of clear UI affordances for regenerated content.",
@@ -241,7 +243,7 @@ export const myProjects = [
       "Built with Vite (react), TailwindCSS, and MongoDB, Attacus and Psyche offers a seamless booking experience. It integrates advanced features like user authentication, real-time availability checks, and secure payment processing to ensure a smooth user journey.",
     href: "https://github.com/mayur-driod/NightWalks",
     texture: "/textures/project/project3.mp4",
-    banner: "",
+    banner: "/assets/ProjectGallery/Attacus_1.png",
     logo: "/assets/Logo.webp",
     logoStyle: {
       backgroundColor: "#60f5a1",
@@ -282,7 +284,8 @@ export const myProjects = [
       "Node.js",
       "Express",
       "MongoDB",
-      "Stripe (payments)",
+      "Razorpay (payment gateway)",
+      "Cloudinary",
     ],
     links: {
       source: "https://github.com/mayur-driod/NightWalks",
@@ -306,7 +309,7 @@ export const myProjects = [
           "Real-time availability and booking calendar",
           "Secure payments and receipts",
           "Admin dashboard for schedule management",
-          "Responsive, mobile-first booking UI",
+          "Responsive design for intuitive booking on any device",
         ],
       },
       {
@@ -324,15 +327,17 @@ export const myProjects = [
       },
     ],
     gallery: [
-      "/assets/screenshots/night-home.png",
-      "/assets/screenshots/night-booking.png",
-      "/assets/screenshots/night-admin.png",
+      "/assets/ProjectGallery/Attacus_1.png",
+      "/assets/ProjectGallery/Attacus_2.png",
+      "/assets/ProjectGallery/Attacus_3.png",
+      "/assets/ProjectGallery/Attacus_4.png",
+      "/assets/ProjectGallery/Attacus_5.png",
     ],
     reflection:
       "This project emphasized the importance of robust availability logic and a forgiving booking UX. I refined strategies for concurrency control and payment reconciliation.",
     stats: {
       duration: "5 weeks",
-      team: "Small Team",
+      team: "Solo Project",
       role: "Frontend / Backend",
       date: "Jan 2025",
     },
@@ -346,7 +351,7 @@ export const myProjects = [
       "Built with Next.js, TypeScript, shadcn/ui, Inngest, Google Gemini and MongoDB TradeX offers a comprehensive solution for stock market enthusiasts. It combines real-time data with the power of AI to provide users with actionable insights and a personalized experience.",
     href: "https://github.com/mayur-driod/TradeX",
     texture: "/textures/project/project4.mp4",
-    banner: "",
+    banner: "/assets/ProjectGallery/Tradex_5.png",
     logo: "/assets/TradeXLogo.png",
     logoStyle: {
       backgroundColor: "#0E1F38",
@@ -428,17 +433,19 @@ export const myProjects = [
       },
     ],
     gallery: [
-      "/assets/screenshots/tradex-home.png",
-      "/assets/screenshots/tradex-charts.png",
-      "/assets/screenshots/tradex-alerts.png",
+      "/assets/ProjectGallery/Tradex_1.png",
+      "/assets/ProjectGallery/Tradex_2.png",
+      "/assets/ProjectGallery/Tradex_3.png",
+      "/assets/ProjectGallery/Tradex_4.png",
+      "/assets/ProjectGallery/Tradex_5.png",
     ],
     reflection:
       "TradeX was an exercise in handling streaming data and designing concise AI-driven summaries. I improved patterns for realtime UI updates and learned to tune AI outputs for brevity and utility.",
     stats: {
       duration: "6 weeks",
-      team: "Solo / Small Team",
+      team: "Solo Project (Inspired by Javascript Mastery)",
       role: "Full Stack Developer",
-      date: "Mar 2025",
+      date: "Sep 2025",
     },
   },
 ];
