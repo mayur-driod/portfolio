@@ -517,3 +517,47 @@ export const workExperiences = [
     animation: "salute",
   },
 ];
+
+export const professionalExperiences = [
+  {
+    id: 1,
+    company: "Super AGI",
+    role: "Software Development Engineer Intern",
+    duration: "Nov 2025 - Jan 2026",
+    logo: "/assets/superAGI.png",
+    letterHref:
+      "https://drive.google.com/file/d/1jy9JkAv5jp6k3A8aVlxqgONHt7odIteA/view",
+    summary:
+      "A focused snapshot of product, engineering, and delivery impact from my internship at Super AGI.",
+    highlights: [
+      {
+        id: 1,
+        title: "Asset Optimization",
+        metric: "~40% assets reduced",
+        detail:
+          "Eliminated around 40% static assets via audit and cleanup. Delivered a 900+ files / 7k+ lines pull request that improved bundle size and accelerated load times.",
+      },
+      {
+        id: 2,
+        title: "UI System Engineering",
+        metric: "10+ reusable components",
+        detail:
+          "Implemented more than 10 reusable UI components to increase design consistency, reduce duplication, and enable scalable feature development.",
+      },
+      {
+        id: 3,
+        title: "Cross-Functional Delivery",
+        metric: "20+ bugs resolved",
+        detail:
+          "Resolved over 20 cross-functional bugs across QA, backend, and design cycles, unblocking 5+ release blockers ahead of launch.",
+      },
+      {
+        id: 4,
+        title: "Product Impact",
+        metric: "3+ services shipped",
+        detail:
+          "Shipped features across 3+ SuperSales services across frontend and backend, refactoring core UX flows to accelerate key user journeys.",
+      },
+    ],
+  },
+];
