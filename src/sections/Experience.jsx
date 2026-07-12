@@ -11,6 +11,9 @@ const Experience = () => {
   );
 
   const highlights = selectedExperience?.highlights ?? [];
+  const hasHighlights = highlights.length > 0;
+  const hasLetter = Boolean(selectedExperience?.letterHref);
+  const hasRight = hasHighlights; // right column is driven only by highlights
 
   const activeItem = useMemo(
     () => highlights[activeHighlight] ?? highlights[0],
@@ -46,7 +49,7 @@ const Experience = () => {
         ))}
       </div>
 
-      <div className="mt-10 grid xl:grid-cols-[1.1fr_1.4fr] grid-cols-1 gap-6">
+      <div className={`mt-10 grid ${hasRight ? 'xl:grid-cols-[1.1fr_1.4fr] grid-cols-1 gap-6' : 'grid-cols-1 gap-6'}`}>
         <article className="rounded-2xl border border-black-300 bg-black-200 p-6 sm:p-8 relative overflow-hidden">
           <div className="absolute -right-16 -top-16 w-44 h-44 rounded-full bg-white/5 blur-3xl" />
           <div className="absolute -left-20 -bottom-20 w-52 h-52 rounded-full bg-white/5 blur-3xl" />
@@ -96,17 +99,19 @@ const Experience = () => {
             ))}
           </div>
 
-          <a
-            href={selectedExperience.letterHref}
-            target="_blank"
-            rel="noreferrer"
-            className="relative z-10 inline-flex mt-6 items-center gap-2 rounded-lg border border-white/15 px-4 py-2 text-white hover:bg-white/10 transition-colors"
-          >
-            View Experience Letter
-            <img src="/assets/arrow-up.png" alt="arrow" className="w-3 h-3" />
-          </a>
+          {hasLetter && (
+            <a
+              href={selectedExperience.letterHref}
+              target="_blank"
+              rel="noreferrer"
+              className="relative z-10 inline-flex mt-6 items-center gap-2 rounded-lg border border-white/15 px-4 py-2 text-white hover:bg-white/10 transition-colors"
+            >
+              View Experience Letter
+              <img src="/assets/arrow-up.png" alt="arrow" className="w-3 h-3" />
+            </a>
+          )}
         </article>
-
+        {hasRight && (
         <article className="rounded-2xl border border-black-300 bg-black-200 p-6 sm:p-8">
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <p className="text-white text-xl sm:text-2xl font-semibold">Impact Highlights</p>
@@ -160,6 +165,7 @@ const Experience = () => {
             </div>
           )}
         </article>
+        )}
       </div>
     </section>
   );

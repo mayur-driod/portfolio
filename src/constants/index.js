@@ -521,6 +521,47 @@ export const workExperiences = [
 export const professionalExperiences = [
   {
     id: 1,
+    company: "thoughtworks",
+    role: "AI/works Quality Analyst Intern",
+    duration: "June 2026 - Present",
+    logo: "/assets/thoughtworksLogo.jpg",
+    // letterHref:
+    //   "https://drive.google.com/file/d/1jy9JkAv5jp6k3A8aVlxqgONHt7odIteA/view",
+    summary:
+      "A focused snapshot of quality assurance, testing, and delivery impact from my internship at thoughtworks.",
+    // highlights: [
+    //   {
+    //     id: 1,
+    //     title: "Test Coverage",
+    //     metric: "20+ test cases",
+    //     detail:
+    //       "Created and executed 20+ test cases across key user flows to validate functionality, edge cases, and regression behavior.",
+    //   },
+    //   {
+    //     id: 2,
+    //     title: "Defect Reporting",
+    //     metric: "20+ bugs documented",
+    //     detail:
+    //       "Logged and tracked 20+ bugs with clear reproduction steps, severity, and expected outcomes to support faster fixes.",
+    //   },
+    //   {
+    //     id: 3,
+    //     title: "Regression Support",
+    //     metric: "5+ release blockers flagged",
+    //     detail:
+    //       "Supported regression testing across QA, backend, and design changes, identifying 5+ release blockers before launch.",
+    //   },
+    //   {
+    //     id: 4,
+    //     title: "Process Improvement",
+    //     metric: "3+ workflows improved",
+    //     detail:
+    //       "Improved QA workflows across 3+ product areas by tightening validation steps, test reporting, and handoff clarity.",
+    //   },
+    // ],
+  },
+    {
+    id: 2,
     company: "Super AGI",
     role: "Software Development Engineer Intern",
     duration: "Nov 2025 - Jan 2026",
